@@ -10,7 +10,7 @@ mkShell {
     libsass
     yarn
     ruby_2_7
-    postgresql_10
+    postgresql_13
     redis
     overmind
   ];
