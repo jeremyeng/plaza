@@ -38,3 +38,6 @@ yarn-debug.log*
 
 # Ignore Postgres data directory
 /postgres
+
+# Ignore Redis files
+dump.rdb
