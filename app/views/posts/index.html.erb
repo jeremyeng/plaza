@@ -1,9 +1,10 @@
 <h1>These are all the posts:</h1>
 
-<ul>
-  <% @posts.each do |post| %>
-    <li>
-      <%= link_to post.title, post %>
-    </li>
-  <% end %>
-</ul>
+<%= turbo_stream_from "posts" %>
+<%= turbo_frame_tag "posts" do %>
+  <%= render @posts %>
+<% end %>
+
+<%= turbo_frame_tag "new_post" do %>
+  <%= link_to "New Post", new_post_path %>
+<% end %>
