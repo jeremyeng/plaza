@@ -13,3 +13,9 @@ ActiveStorage.start()
 
 import "controllers"
 import "stylesheets/application"
+
+document.addEventListener("DOMContentLoaded", function(){
+  document.documentElement.addEventListener("turbo:click", function(event){
+    history.pushState(history.state, '', event.detail.url)
+  });
+});

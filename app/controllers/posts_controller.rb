@@ -4,11 +4,12 @@ class PostsController < ApplicationController
   end
 
   def show
+    @posts = Post.all.order(created_at: :desc)
     @post = Post.find(params[:id])
 
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.update("current_post", partial: "post_full_view", locals: { post: @post }) }
-      format.html { render :show }
+      format.html { render :index }
     end
   end
 
