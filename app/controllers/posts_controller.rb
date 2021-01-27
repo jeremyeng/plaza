@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.update("current_post", partial: "post", locals: { post: @post }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.update("current_post", partial: "post_full_view", locals: { post: @post }) }
       format.html { render :show }
     end
   end

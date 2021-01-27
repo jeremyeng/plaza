@@ -1,3 +1,8 @@
-<p class="<%= dom_id post %>">
-  <%= link_to post.title, post %>
-</p>
+<div class="hover:bg-gray-100">
+  <%= link_to post do %>
+    <div class="<%= dom_id post %> p-2">
+      <p class="font-bold"><%= post.title %></p>
+      <p class="text-sm text-gray-500"><%= post.body %></p>
+    </div>
+  <% end %>
+</div>

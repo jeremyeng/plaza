@@ -3,4 +3,9 @@
 @import "tailwindcss/components";
 
 /* Add any custom CSS here */
+@layer utilities {
+  .grid-cols-fixed-left {
+    grid-template-columns: 300px 1fr;
+  }
+}
 @import "tailwindcss/utilities";

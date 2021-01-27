@@ -1,12 +1,19 @@
-<h1>These are all the posts:</h1>
 
-<%= turbo_stream_from "posts" %>
-<%= turbo_frame_tag "posts" do %>
-  <%= render @posts %>
-<% end %>
+<div class="flex flex-col h-full">
+  <div class="flex-initial text-3xl bg-blue-400">Plaza</div>
+  <div class="flex flex-col flex-auto overflow-auto">
+    <div class="grid grid-cols-fixed-left auto-cols-fr h-full">
+      <div class="overflow-auto h-full">
+        <%= turbo_frame_tag "new_post" do %>
+          <%= link_to "New Post", new_post_path %>
+        <% end %>
+        <%= turbo_stream_from "posts" %>
+        <%= turbo_frame_tag "posts" do %>
+          <%= render @posts %>
+        <% end %>
+      </div>
+      <div class="overflow-auto h-full" id="current_post"></div>
+    </div>
+  </div>
+</div>
 
-<%= turbo_frame_tag "new_post" do %>
-  <%= link_to "New Post", new_post_path %>
-<% end %>
-
-<div id="current_post"></div>
