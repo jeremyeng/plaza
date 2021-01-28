@@ -3,8 +3,8 @@
   <div class="flex-initial text-3xl bg-blue-400">Plaza</div>
   <div class="flex flex-col flex-auto overflow-auto">
     <div class="grid grid-cols-fixed-left auto-cols-fr h-full">
-      <div class="overflow-auto h-full">
-        <%= link_to "New Post", new_post_path %>
+      <div class="overflow-auto h-full pl-2 pr-2">
+        <%= link_to "New Post", new_post_path, class: "btn-blue mt-4 mb-4 inline-block" %>
         <%= turbo_stream_from "posts" %>
         <%= turbo_frame_tag "posts" do %>
           <%= render @posts %>

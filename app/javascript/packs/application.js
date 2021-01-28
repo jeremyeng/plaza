@@ -17,8 +17,13 @@ import "stylesheets/application"
 document.addEventListener("DOMContentLoaded", function(){
   document.documentElement.addEventListener("turbo:click", function(event){
     if(/\/posts\/\d+/.test(event.detail.url)) {
-      console.log("pushed")
-      history.pushState(history.state, '', event.detail.url)
+      history.pushState(history.state, '', event.detail.url);
+    }
+  });
+
+  document.documentElement.addEventListener("turbo:submit-end", function(event){
+    if(event.detail.fetchResponse.response.redirected) {
+      history.pushState(history.state, '', event.detail.fetchResponse.response.url);
     }
   });
 });

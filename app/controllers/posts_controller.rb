@@ -24,12 +24,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    @posts = Post.all.order(created_at: :desc)
     @post = Post.new(post_params)
 
     if @post.save
-      redirect_to posts_path
+      redirect_to post_path(@post.id)
     else
-      render :new
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.update("current_post", partial: "form", locals: { post: @post }) }
+        format.html { render :new }
+      end
     end
   end
 
