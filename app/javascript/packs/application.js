@@ -16,6 +16,9 @@ import "stylesheets/application"
 
 document.addEventListener("DOMContentLoaded", function(){
   document.documentElement.addEventListener("turbo:click", function(event){
-    history.pushState(history.state, '', event.detail.url)
+    if(/\/posts\/\d+/.test(event.detail.url)) {
+      console.log("pushed")
+      history.pushState(history.state, '', event.detail.url)
+    }
   });
 });

@@ -14,7 +14,13 @@ class PostsController < ApplicationController
   end
 
   def new
+    @posts = Post.all.order(created_at: :desc)
     @post = Post.new
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.update("current_post", partial: "form", locals: { post: @post }) }
+      format.html { render :index }
+    end
   end
 
   def create

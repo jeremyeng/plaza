@@ -4,22 +4,22 @@
   <div class="flex flex-col flex-auto overflow-auto">
     <div class="grid grid-cols-fixed-left auto-cols-fr h-full">
       <div class="overflow-auto h-full">
-        <%= turbo_frame_tag "new_post" do %>
-          <%= link_to "New Post", new_post_path %>
-        <% end %>
+        <%= link_to "New Post", new_post_path %>
         <%= turbo_stream_from "posts" %>
         <%= turbo_frame_tag "posts" do %>
           <%= render @posts %>
         <% end %>
       </div>
       <div class="overflow-auto h-full" id="current_post">
-        <% if @post.present? %>
+        <% if @post.present? && @post.id.present? %>
           <div class="">
             <div class="border border-gray-300 rounded-md shadow-md p-6 m-6 max-w-5xl mx-auto">
               <h1 class="font-bold text-2xl pb-2"><%= @post.title %></h1>
               <p class="text-gray-500 text-xl"><%= @post.body %></p>
             </div>
           </div>
+        <% elsif @post.present? && @post.id.blank? %>
+          <%= render "form", post: @post %>
         <% end %>
       </div>
     </div>

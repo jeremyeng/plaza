@@ -1,0 +1,25 @@
+<%= form_with model: post, class: "max-w-5xl mx-auto" do |form| %>
+  <div class="flex items-center">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "border border-gray-300 rounded-md shadow-md p-2 m-6 w-full" %>
+    <% post.errors.full_messages_for(:title).each do |message| %>
+      <div>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex items-center">
+    <%= form.label :body %>
+    <%= form.text_area :body, class: "border border-gray-300 rounded-md shadow-md p-2 m-6 w-full" %>
+    <% post.errors.full_messages_for(:body).each do |message| %>
+      <div>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
