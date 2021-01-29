@@ -2,7 +2,7 @@
   <%= link_to post do %>
     <div class="<%= dom_id post %> pt-2 pb-2">
       <p class="font-bold"><%= post.title %></p>
-      <p class="text-gray-500"><%= post.content.to_plain_text %></p>
+      <p class="text-gray-500"><%= truncate(post.content.to_plain_text, length: 100, omission: '...') %></p>
     </div>
   <% end %>
 </div>
