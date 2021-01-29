@@ -10,8 +10,8 @@
   </div>
 
   <div class="flex items-center">
-    <%= form.label :body %>
-    <% post.errors.full_messages_for(:body).each do |message| %>
+    <%= form.label :content %>
+    <% post.errors.full_messages_for(:content).each do |message| %>
       <div>
         <%= message %>
       </div>
