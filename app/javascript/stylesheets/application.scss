@@ -8,6 +8,10 @@
     grid-template-columns: 300px 1fr;
   }
 
+  .form-grid {
+    grid-template-columns: 10rem 1fr;
+  }
+
   ol, ul {
     list-style: unset;
   }

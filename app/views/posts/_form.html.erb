@@ -1,25 +1,33 @@
 <%= form_with model: post, class: "max-w-5xl mx-auto" do |form| %>
-  <div class="flex items-center">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "border border-gray-300 rounded-md shadow-md p-2 m-6 w-full" %>
+  <div class="grid form-grid text-xl mt-8">
+    <div class="flex items-center justify-end mr-6">
+      <div class="text-right">
+        <%= form.label :title %>
+      </div>
+    </div>
+    <%= form.text_field :title, class: "border border-gray-300 rounded-md shadow-md p-2 w-full" %>
     <% post.errors.full_messages_for(:title).each do |message| %>
-      <div>
+      <div class="mx-auto text-red-500 col-start-2">
         <%= message %>
       </div>
     <% end %>
   </div>
 
-  <div class="flex items-center">
-    <%= form.label :content %>
+  <div class="grid form-grid text-xl mt-8">
+    <div class="text-right mr-6">
+      <%= form.label :content %>
+    </div>
+    <div>
+      <%= form.rich_text_area :content %>
+    </div>
     <% post.errors.full_messages_for(:content).each do |message| %>
-      <div>
+      <div class="mx-auto text-red-500 col-start-2">
         <%= message %>
       </div>
     <% end %>
   </div>
-  <%= form.rich_text_area :content %>
 
-  <div>
-    <%= form.submit "Create Post", class: "btn-blue" %>
+  <div class="grid form-grid text-xl mt-8">
+    <%= form.submit "Create Post", class: "btn-blue col-start-2" %>
   </div>
 <% end %>
