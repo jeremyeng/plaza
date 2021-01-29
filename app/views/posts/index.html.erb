@@ -6,7 +6,7 @@
       <div class="overflow-auto h-full pl-2 pr-2">
         <%= link_to "New Post", new_post_path, class: "btn-blue mt-4 mb-4 inline-block" %>
         <%= turbo_stream_from "posts" %>
-        <%= turbo_frame_tag "posts" do %>
+        <%= turbo_frame_tag "posts", target: "_top" do %>
           <%= render @posts %>
         <% end %>
       </div>
