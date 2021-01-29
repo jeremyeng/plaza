@@ -27,3 +27,6 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   });
 });
+
+require("trix")
+require("@rails/actiontext")
