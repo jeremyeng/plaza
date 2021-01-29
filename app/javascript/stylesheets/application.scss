@@ -1,12 +1,15 @@
 /* app/javascript/stylesheets/application.scss */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "app/assets/stylesheets/actiontext.scss";
 
 /* Add any custom CSS here */
 @layer utilities {
   .grid-cols-fixed-left {
     grid-template-columns: 300px 1fr;
+  }
+
+  ol, ul {
+    list-style: unset;
   }
 }
 @layer components {
@@ -15,3 +18,4 @@
   }
 }
 @import "tailwindcss/utilities";
+@import "app/assets/stylesheets/actiontext.scss";

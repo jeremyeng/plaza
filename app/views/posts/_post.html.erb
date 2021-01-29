@@ -2,7 +2,7 @@
   <%= link_to post do %>
     <div class="<%= dom_id post %> pt-2 pb-2">
       <p class="font-bold"><%= post.title %></p>
-      <p class="text-sm text-gray-500"><%= post.body %></p>
+      <p class="text-gray-500"><%= post.content.to_plain_text %></p>
     </div>
   <% end %>
 </div>
