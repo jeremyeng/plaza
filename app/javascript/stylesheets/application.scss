@@ -10,4 +10,8 @@
   @apply animate-pulse font-bold text-gray-200 text-2xl mb-6;
 }
 
+.card {
+  @apply bg-white rounded-md px-5 py-4 shadow-md;
+}
+
 @import "tailwindcss/utilities";
