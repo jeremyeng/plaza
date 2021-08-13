@@ -33,11 +33,6 @@ export const PostForm = (props) => {
             console.log("ERROR");
             setSubmitting(false);
           });
-        // setTimeout(() => {
-        //   alert(JSON.stringify(values, null, 2));
-
-        //   setSubmitting(false);
-        // }, 400);
       }}
     >
       <Form className="flex flex-col w-128 m-auto">
