@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, NavLink, Switch, useParams, Link } from "react-router-dom";
 import axios from "axios";
 
+import { PostForm } from "components/post_form";
+
 export function PostsApp(props) {
   const [posts, setPosts] = useState([]);
 
@@ -16,10 +18,18 @@ export function PostsApp(props) {
     <Router>
       <div className="grid grid-cols-sidebar h-screen flex flex-col w-full">
         <div className="sidebar overflow-y-scroll">
+          <div>
+            <Link to="/posts/create">
+              <button className="btn">New Post</button>
+            </Link>
+          </div>
           {posts ? posts.map((post) => <PostPreview post={post} key={post.id} />) : null}
         </div>
         <div className="bg-cool-gray-050">
           <Switch>
+            <Route path="/posts/create">
+              <PostForm authToken={props.authToken} />
+            </Route>
             <Route path="/posts/:postId">
               <PostFull />
             </Route>
