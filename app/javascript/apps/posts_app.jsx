@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, NavLink, Switch, useParams, Link } from
 import axios from "axios";
 
 import { PostForm } from "components/post_form";
+import { EditPostForm } from "components/edit_post_form";
 
 export function PostsApp(props) {
   const [posts, setPosts] = useState([]);
@@ -29,6 +30,9 @@ export function PostsApp(props) {
           <Switch>
             <Route path="/posts/create">
               <PostForm authToken={props.authToken} />
+            </Route>
+            <Route path="/posts/edit/:postId">
+              <EditPostForm authToken={props.authToken} />
             </Route>
             <Route path="/posts/:postId">
               <PostFull />
@@ -75,6 +79,9 @@ function PostFull() {
       <div className="card m-auto w-128 mt-4">
         <h1 className="text-xl font-medium mb-2">{post.title}</h1>
         <p className="leading-snug">{post.body}</p>
+        <Link to={`/posts/edit/${postId}`}>
+          <button className="btn">Edit</button>
+        </Link>
       </div>
     );
   } else {
