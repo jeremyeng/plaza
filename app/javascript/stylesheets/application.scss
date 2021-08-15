@@ -2,9 +2,7 @@
 
 @import "tailwindcss/components";
 
-.btn {
-  @apply px-4 py-2 bg-light-blue-vivid-500 text-white rounded;
-}
+@import "stylesheets/components/buttons";
 
 .pulsing-text {
   @apply animate-pulse font-bold text-gray-200 text-2xl mb-6;

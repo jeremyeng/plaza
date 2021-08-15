@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route, NavLink, Switch, useParams, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams,
+  useHistory,
+  Link,
+} from "react-router-dom";
 import axios from "axios";
 
 import { PostForm } from "components/post_form";
 import { EditPostForm } from "components/edit_post_form";
+import Dropdown from "components/dropdown";
 
 export function PostsApp(props) {
   const [posts, setPosts] = useState([]);
@@ -21,7 +28,7 @@ export function PostsApp(props) {
         <div className="sidebar overflow-y-scroll">
           <div>
             <Link to="/posts/create">
-              <button className="btn">New Post</button>
+              <button className="btn-primary-sm">New Post</button>
             </Link>
           </div>
           {posts ? posts.map((post) => <PostPreview post={post} key={post.id} />) : null}
@@ -35,7 +42,7 @@ export function PostsApp(props) {
               <EditPostForm authToken={props.authToken} />
             </Route>
             <Route path="/posts/:postId">
-              <PostFull />
+              <PostFull authToken={props.authToken} />
             </Route>
             <Route
               path="/posts"
@@ -51,8 +58,6 @@ export function PostsApp(props) {
 }
 
 function PostPreview({ post }) {
-  // let { id } = useParams();
-
   return (
     <Link to={`/posts/${post.id}`} key={post.id}>
       <div className="border-b border-gray-200 pt-1 pb-1 pl-2 pr-2 hover:bg-gray-100">
@@ -63,25 +68,46 @@ function PostPreview({ post }) {
   );
 }
 
-function PostFull() {
+function PostFull(props) {
   let { postId } = useParams();
-
+  const history = useHistory();
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/posts/${postId}.json`).then((res) => {
+    axios.get(`/api/v1/posts/${postId}.json`).then((res) => {
       setPost(res.data);
     });
   }, [postId]);
 
+  function handleEdit() {
+    history.push(`/posts/edit/${postId}`);
+  }
+
+  function handleDelete() {
+    axios
+      .delete(`/api/v1/posts/${postId}`, { headers: { "X-CSRF-TOKEN": props.authToken } })
+      .then(() => {
+        history.push(`/posts`);
+      });
+  }
+
+  const dropdownItems = [
+    {
+      label: "Edit",
+      handleClick: handleEdit,
+    },
+    {
+      label: "Delete",
+      handleClick: handleDelete,
+    },
+  ];
+
   if (post) {
     return (
       <div className="card m-auto w-128 mt-4">
-        <h1 className="text-xl font-medium mb-2">{post.title}</h1>
-        <p className="leading-snug">{post.body}</p>
-        <Link to={`/posts/edit/${postId}`}>
-          <button className="btn">Edit</button>
-        </Link>
+        <h1 className="text-xl font-medium">{post.title}</h1>
+        <p className="leading-snug mt-6 mb-2">{post.body}</p>
+        <Dropdown label="Actions" menuItems={dropdownItems} />
       </div>
     );
   } else {

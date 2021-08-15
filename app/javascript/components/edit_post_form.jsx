@@ -81,7 +81,7 @@ export const EditPostForm = (props) => {
             </ErrorMessage>
           </div>
 
-          <button type="submit" className="btn">
+          <button type="submit" className="btn-primary">
             Submit
           </button>
         </Form>
