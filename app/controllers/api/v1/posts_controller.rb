@@ -2,7 +2,7 @@ class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   # GET /posts/1 or
@@ -41,10 +41,7 @@ class Api::V1::PostsController < ApplicationController
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
