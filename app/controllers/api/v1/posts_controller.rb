@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show update destroy ]
 
   def index
     @posts = Post.all.order(created_at: :desc)
@@ -7,15 +7,6 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts/1 or
   def show
-  end
-
-  # GET /posts/new
-  def new
-    @post = Post.new
-  end
-
-  # GET /posts/1/edit
-  def edit
   end
 
   # POST /posts or
