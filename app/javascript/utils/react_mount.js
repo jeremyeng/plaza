@@ -11,7 +11,7 @@ function onDOMReady(callback) {
   }
 }
 
-function buildWithDataProps(selector, ReactComponent) {
+function buildWithDataProps(selector, ReactComponent, baseProps) {
   const el = document.querySelector(selector);
   const props = Object.keys(el.dataset).reduce((hash, key) => {
     const boolRegex = /^(true|false)/;
@@ -27,7 +27,7 @@ function buildWithDataProps(selector, ReactComponent) {
       hash[key] = el.dataset[key];
     }
     return hash;
-  }, {});
+  }, baseProps);
 
   return <ReactComponent {...props} />;
 }
@@ -50,9 +50,9 @@ export function mount(selector, reactInstance) {
   onDOMReady(() => safeMount(selector, reactInstance));
 }
 
-export function mountComponentWithDataProps(selector, ReactComponent) {
+export function mountComponentWithDataProps(selector, ReactComponent, baseProps = {}) {
   onDOMReady(() => {
-    const reactInstance = buildWithDataProps(selector, ReactComponent);
+    const reactInstance = buildWithDataProps(selector, ReactComponent, baseProps);
     safeMount(selector, reactInstance);
   });
 }

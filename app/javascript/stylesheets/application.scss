@@ -2,12 +2,14 @@
 
 @import "tailwindcss/components";
 
-.btn {
-  @apply px-4 py-2 bg-blue-600 text-white rounded;
-}
+@import "stylesheets/components/buttons";
 
 .pulsing-text {
   @apply animate-pulse font-bold text-gray-200 text-2xl mb-6;
+}
+
+.card {
+  @apply bg-white rounded-md px-5 py-4 shadow-md;
 }
 
 @import "tailwindcss/utilities";

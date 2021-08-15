@@ -1,0 +1,19 @@
+.btn-primary-lg {
+  @apply bg-light-blue-vivid-500 text-white rounded;
+  padding: 15px 30px;
+}
+
+.btn-primary-md {
+  @apply bg-light-blue-vivid-500 text-white rounded;
+  padding: 12px 16px;
+}
+
+.btn-primary {
+  @apply bg-light-blue-vivid-500 text-white rounded;
+  padding: 8px 10px;
+}
+
+.btn-primary-sm {
+  @apply bg-light-blue-vivid-500 text-white rounded;
+  padding: 6px 8px;
+}
