@@ -24,13 +24,10 @@ export const PostForm = (props) => {
             { headers: { "X-CSRF-TOKEN": props.authToken } }
           )
           .then((response) => {
-            console.log("SUCCESS");
-            console.log(response.data.id);
             setSubmitting(false);
             history.push(`/posts/${response.data.id}`);
           })
           .catch(() => {
-            console.log("ERROR");
             setSubmitting(false);
           });
       }}
