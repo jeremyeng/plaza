@@ -19,6 +19,16 @@ module Plaza
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # This will cause the ActionDispatch::DebugExceptions middleware to
+    # generate debug information in the requested content-type instead of as HTML only.
+    # In turn, this allows graphti-rails to generate more specific error messages for JSON API requests.
+    config.debug_exception_response_format = :api
+
+    # Since Rails doesn't correctly format exceptions for JSON:API requests,
+    # graphiti-rails intercepts these requests for proper rendering.
+    # This enables GraphitiError handlers for other response types as well
+    config.graphiti.handled_exception_formats += [:xml]
+
     config.generators do |g|
       g.test_framework :rspec
       g.helper false
