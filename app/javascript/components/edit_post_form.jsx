@@ -31,6 +31,7 @@ export const EditPostForm = (props) => {
             .save()
             .then(() => {
               setSubmitting(false);
+              props.onEdit(post);
               history.push(`/posts/${post.id}`);
             })
             .catch(() => {

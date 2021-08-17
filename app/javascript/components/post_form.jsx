@@ -21,6 +21,7 @@ export const PostForm = (props) => {
           .save()
           .then(() => {
             setSubmitting(false);
+            props.onCreate(newPost);
             history.push(`/posts/${newPost.id}`);
           })
           .catch(() => {

@@ -24,6 +24,10 @@ export function PostsApp(props) {
       });
   }
 
+  function createPost(newPost) {
+    setPosts([newPost, ...posts]);
+  }
+
   function updatePost(updatedPost) {
     const newPosts = posts.map((post) => {
       if (post.id === updatedPost.id) {
@@ -58,7 +62,7 @@ export function PostsApp(props) {
         <div className="bg-cool-gray-050">
           <Switch>
             <Route path="/posts/create">
-              <PostForm onCreate={fetchPosts} />
+              <PostForm onCreate={createPost} />
             </Route>
             <Route path="/posts/edit/:postId">
               <EditPostForm onEdit={updatePost} />
