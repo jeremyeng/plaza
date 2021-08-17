@@ -34,12 +34,27 @@ gem "rexml", "~> 3.2", ">= 3.2.4"
 
 gem "slim-rails"
 
+# For JSON:API compliant resources
+gem "graphiti-rails"
+
+# For automatic ActiveRecord pagination
+gem "kaminari"
+
+# Avoid boilerplate in controllers
+gem "responders"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
+  gem "rspec-rails"
+
   # Generate test data for database seeding
   gem "faker", "~> 2.18"
+
+  gem "factory_bot_rails"
+
+  gem "graphiti_spec_helpers"
 end
 
 group :development do
@@ -59,7 +74,7 @@ group :test do
   gem "selenium-webdriver"
   # Easy installation and use of web drivers to run system tests with browsers
   gem "webdrivers"
-  gem "rspec-rails"
+  gem "database_cleaner"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

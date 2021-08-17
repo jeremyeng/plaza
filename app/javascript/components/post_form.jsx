@@ -2,7 +2,8 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import axios from "axios";
+
+import { Post } from "models/post";
 
 export const PostForm = (props) => {
   const history = useHistory();
@@ -15,17 +16,12 @@ export const PostForm = (props) => {
         body: Yup.string().required("Required"),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        axios
-          .post(
-            "/api/v1/posts",
-            {
-              ...values,
-            },
-            { headers: { "X-CSRF-TOKEN": props.authToken } }
-          )
-          .then((response) => {
+        const newPost = new Post({ ...values });
+        newPost
+          .save()
+          .then(() => {
             setSubmitting(false);
-            history.push(`/posts/${response.data.id}`);
+            history.push(`/posts/${newPost.id}`);
           })
           .catch(() => {
             setSubmitting(false);

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useHistory, useParams } from "react-router-dom";
 import * as Yup from "yup";
-import axios from "axios";
+
+import { Post } from "models/post";
 
 export const EditPostForm = (props) => {
   const history = useHistory();
@@ -10,8 +11,8 @@ export const EditPostForm = (props) => {
   const { postId } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/posts/${postId}.json`).then((res) => {
-      setPost(res.data);
+    Post.find(postId).then(function ({ data }) {
+      setPost(data);
     });
   }, [postId]);
 
@@ -24,22 +25,15 @@ export const EditPostForm = (props) => {
           body: Yup.string().required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          axios
-            .patch(
-              `/api/v1/posts/${post.id}`,
-              {
-                ...values,
-              },
-              { headers: { "X-CSRF-TOKEN": props.authToken } }
-            )
-            .then((response) => {
-              console.log("SUCCESS");
-              console.log(response.data.id);
+          post.title = values.title;
+          post.body = values.body;
+          post
+            .save()
+            .then(() => {
               setSubmitting(false);
-              history.push(`/posts/${response.data.id}`);
+              history.push(`/posts/${post.id}`);
             })
             .catch(() => {
-              console.log("ERROR");
               setSubmitting(false);
             });
         }}

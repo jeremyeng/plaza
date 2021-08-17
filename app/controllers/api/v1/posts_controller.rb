@@ -1,49 +1,40 @@
-class Api::V1::PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy ]
-
+class Api::V1::PostsController < ApplicationApiController
   def index
-    @posts = Post.all.order(created_at: :desc)
+    posts = PostResource.all(params)
+    respond_with(posts)
   end
 
-  # GET /posts/1 or
   def show
+    post = PostResource.find(params)
+    respond_with(post)
   end
 
-  # POST /posts or
   def create
-    @post = Post.new(post_params)
+    post = PostResource.build(params)
 
-    if @post.save
-      render json: @post
+    if post.save
+      render jsonapi: post, status: 201
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render jsonapi_errors: post
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    if @post.update(post_params)
-      render json: @post
+    post = PostResource.find(params)
+    if post.update_attributes
+      render jsonapi: post
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render jsonapi_errors: post
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post.destroy
-    head :no_content
-  end
+    post = PostResource.find(params)
 
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def post_params
-    params.require(:post).permit(:title, :body, :views)
+    if post.destroy
+      render jsonapi: { meta: {} }, status: 200
+    else
+      render jsonapi_errors: post
+    end
   end
 end
