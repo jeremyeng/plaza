@@ -7,8 +7,8 @@ import {
   useHistory,
   Link,
 } from "react-router-dom";
-import axios from "axios";
 
+import { Post } from "models/post";
 import { PostForm } from "components/post_form";
 import { EditPostForm } from "components/edit_post_form";
 import Dropdown from "components/dropdown";
@@ -16,11 +16,33 @@ import Dropdown from "components/dropdown";
 export function PostsApp(props) {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/posts`).then((res) => {
-      setPosts(res.data);
+  function fetchPosts() {
+    Post.order({ created_at: "desc" })
+      .all()
+      .then(function ({ data }) {
+        setPosts(data);
+      });
+  }
+
+  function updatePost(updatedPost) {
+    const newPosts = posts.map((post) => {
+      if (post.id === updatedPost.id) {
+        return updatedPost;
+      }
+
+      return post;
     });
-  }, []);
+
+    setPosts(newPosts);
+  }
+
+  function deletePost(deletedPostId) {
+    const newPosts = posts.filter((post) => post.id != deletedPostId);
+
+    setPosts(newPosts);
+  }
+
+  useEffect(fetchPosts, []);
 
   return (
     <Router>
@@ -36,13 +58,13 @@ export function PostsApp(props) {
         <div className="bg-cool-gray-050">
           <Switch>
             <Route path="/posts/create">
-              <PostForm authToken={props.authToken} />
+              <PostForm onCreate={fetchPosts} />
             </Route>
             <Route path="/posts/edit/:postId">
-              <EditPostForm authToken={props.authToken} />
+              <EditPostForm onEdit={updatePost} />
             </Route>
             <Route path="/posts/:postId">
-              <PostFull authToken={props.authToken} />
+              <PostFull onDelete={deletePost} />
             </Route>
             <Route
               path="/posts"
@@ -62,7 +84,7 @@ function PostPreview({ post }) {
     <Link to={`/posts/${post.id}`} key={post.id}>
       <div className="border-b border-gray-200 pt-1 pb-1 pl-2 pr-2 hover:bg-gray-100">
         <h3 className="text-sm truncate font-medium">{post.title}</h3>
-        <p className="text-sm leading-tight text-gray-500">{post.snippet}</p>
+        <p className="text-sm leading-tight text-gray-500">{post.body}</p>
       </div>
     </Link>
   );
@@ -71,11 +93,11 @@ function PostPreview({ post }) {
 function PostFull(props) {
   let { postId } = useParams();
   const history = useHistory();
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(props.post);
 
   useEffect(() => {
-    axios.get(`/api/v1/posts/${postId}.json`).then((res) => {
-      setPost(res.data);
+    Post.find(postId).then(function ({ data }) {
+      setPost(data);
     });
   }, [postId]);
 
@@ -84,11 +106,11 @@ function PostFull(props) {
   }
 
   function handleDelete() {
-    axios
-      .delete(`/api/v1/posts/${postId}`, { headers: { "X-CSRF-TOKEN": props.authToken } })
-      .then(() => {
-        history.push(`/posts`);
-      });
+    const deletedPostId = post.id;
+    post.destroy().then(() => {
+      history.push(`/posts`);
+    });
+    props.onDelete(deletedPostId);
   }
 
   const dropdownItems = [
