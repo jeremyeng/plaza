@@ -12,4 +12,8 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = yield :page_specific_js
   body class="bg-white"
+    - flash.each do |type, msg|
+      div
+        = msg
+
     = yield
