@@ -43,6 +43,12 @@ gem "kaminari"
 # Avoid boilerplate in controllers
 gem "responders"
 
+# User Authentication
+gem "devise"
+
+# Integration with https://postmarkapp.com transactional email service
+gem "postmark-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

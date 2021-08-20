@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  # GET /posts
+  before_action :authenticate_user!
+
   def index
   end
 end
