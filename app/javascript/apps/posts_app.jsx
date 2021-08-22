@@ -10,6 +10,7 @@ import {
 
 import { Post } from "models/post";
 import { PostForm } from "components/post_form";
+import { PostsList } from "components/posts_list";
 import { EditPostForm } from "components/edit_post_form";
 import Dropdown from "components/dropdown";
 
@@ -57,9 +58,9 @@ export function PostsApp(props) {
               <button className="btn-primary-sm">New Post</button>
             </Link>
           </div>
-          {posts ? posts.map((post) => <PostPreview post={post} key={post.id} />) : null}
+          <PostsList posts={posts}></PostsList>
         </div>
-        <div className="bg-cool-gray-050">
+        <div>
           <Switch>
             <Route path="/posts/create">
               <PostForm onCreate={createPost} />
@@ -80,17 +81,6 @@ export function PostsApp(props) {
         </div>
       </div>
     </Router>
-  );
-}
-
-function PostPreview({ post }) {
-  return (
-    <Link to={`/posts/${post.id}`} key={post.id}>
-      <div className="border-b border-gray-200 pt-1 pb-1 pl-2 pr-2 hover:bg-gray-100">
-        <h3 className="text-sm truncate font-medium">{post.title}</h3>
-        <p className="text-sm leading-tight text-gray-500">{post.body}</p>
-      </div>
-    </Link>
   );
 }
 
