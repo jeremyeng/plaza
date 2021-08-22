@@ -10,8 +10,10 @@ html
     = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'navbar'
     = yield :page_specific_js
-  body class="bg-white"
+  body class="relative h-screen overflow-hidden bg-gray-100 flex flex-col"
+    = tag.div id: 'navbar-app'
     - flash.each do |type, msg|
       div
         = msg
