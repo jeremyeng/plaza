@@ -15,7 +15,11 @@ html
   body class="relative h-screen overflow-hidden bg-gray-100 flex flex-col"
     = tag.div id: 'navbar-app'
     - flash.each do |type, msg|
-      div
-        = msg
+      /! This example requires Tailwind CSS v2.0+
+      .relative.bg-indigo-600
+        .max-w-7xl.mx-auto.py-3.px-3.sm:px-6.lg:px-8
+          .pr-16.sm:text-center.sm:px-16
+            p.font-medium.text-white
+              span.hidden.md:inline = msg
 
     = yield
